@@ -1,2 +1,3 @@
-# django-service-template
-This repository contains code related to Django service template.
+# Kameri Todo App
+
+This repository contains code related to todo app. This service written in Django.
