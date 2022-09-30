@@ -11,8 +11,8 @@ def add_todo(req: django.http.HttpRequest):
     # Get data from request body and add it to database
     # It will redirect to today's todo page
 
-    if req.method == "GET":
-        return django.http.HttpResponse("Wrong Method GET", status=405)
+    if req.method != "POST":
+        return django.http.HttpResponse("Wrong Method", status=405)
 
     body = json.loads(req.body.decode("utf-8"))
     print(body)
@@ -25,4 +25,27 @@ def add_todo(req: django.http.HttpRequest):
 curl -X POST \
 --data '{"title": "Take update from Interns"}' \
 http://127.0.0.1:8001/api/add-todo/
+"""
+
+
+@csrf_exempt
+def list_todo(req: django.http.HttpRequest):
+
+    if req.method != "GET":
+        return django.http.HttpResponse("Wrong Method", status=405)
+
+    return django.http.JsonResponse({
+        "data": [
+            {
+                "id": "<todo id>",
+                "title": "<todo title>",
+                "status": "<todo status>"
+            }
+        ],
+        "success": True,
+        "message": "Todo fetched successfully"
+    })
+
+"""
+curl -X GET http://127.0.0.1:8001/api/todos/
 """
