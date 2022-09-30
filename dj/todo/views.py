@@ -49,3 +49,42 @@ def list_todo(req: django.http.HttpRequest):
 """
 curl -X GET http://127.0.0.1:8001/api/todos/
 """
+
+
+@csrf_exempt
+def update_todo(req: django.http.HttpRequest):
+
+    if req.method != "POST":
+        return django.http.HttpResponse("Wrong Method", status=405)
+
+    body = json.loads(req.body.decode("utf-8"))
+    status = body.get("status")
+    if not status:
+        # Return error fields
+        return django.http.JsonResponse({
+            "success": False,
+            "error": {
+                "todo#status": "Status is mandatory field"
+            },
+            "message": "missing mandatory fields"
+        }, status=200)
+
+    print(body, status)
+
+    return django.http.JsonResponse({
+        "data": [
+            {
+                "id": "<todo id>",
+                "title": "<todo title>",
+                "status": "<todo status>"
+            }
+        ],
+        "success": True,
+        "message": "updated successfully"
+    }, status=200)
+
+"""
+curl -X POST \
+--data '{"status": "done"}' \
+http://127.0.0.1:8001/api/update-todo/
+"""

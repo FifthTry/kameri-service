@@ -21,4 +21,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("api/add-todo/", views.add_todo),
     path("api/todos/", views.list_todo),
+    path("api/update-todo/", views.update_todo),
 ]
