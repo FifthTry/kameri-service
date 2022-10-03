@@ -1,6 +1,7 @@
 import django
 import json
 from django.views.decorators.csrf import csrf_exempt
+from .models import Todo
 
 
 # Create your views here.
@@ -16,13 +17,14 @@ def add_todo(req: django.http.HttpRequest):
         return django.http.HttpResponse("Wrong Method", status=405)
 
     body = json.loads(req.body.decode("utf-8"))
-    print(body)
 
-    return django.http.JsonResponse(
-        {
-            "id": "<todo id>",
-        }
+    Todo.objects.create(
+        title=body["title"], status=body["status"], description=body["description"]
     )
+
+    print("TODO Added: ", body)
+
+    return django.http.JsonResponse({"data": {"url": "/"}}, status=200)
 
 
 """
@@ -38,14 +40,15 @@ def list_todo(req: django.http.HttpRequest):
     if req.method != "GET":
         return django.http.HttpResponse("Wrong Method", status=405)
 
+    mapper = lambda x: {
+        "title": x.title,
+        "status": x.status,
+        "description": x.description,
+    }
+
     return django.http.JsonResponse(
-        {
-            "data": [
-                {"id": "<todo id>", "title": "<todo title>", "status": "<todo status>"}
-            ],
-            "success": True,
-            "message": "Todo fetched successfully",
-        }
+        list(map(mapper, Todo.objects.all())),
+        safe=False,
     )
 
 
