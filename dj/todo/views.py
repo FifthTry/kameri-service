@@ -18,13 +18,16 @@ def add_todo(req: django.http.HttpRequest):
 
     body = json.loads(req.body.decode("utf-8"))
 
-    Todo.objects.create(
-        title=body["title"], status=body["status"], description=body["description"]
-    )
+    # Todo.objects.create(
+    #     title=body["title"], status=body["status"], description=body["description"]
+    # )
 
     print("TODO Added: ", body)
+    return django.http.JsonResponse(
+        {"data": {"kameri-app/add-todo/#title-error": "title is mandatory"}}, status=200
+    )
 
-    return django.http.JsonResponse({"data": {"url": "/"}}, status=200)
+    # return django.http.JsonResponse({"data": {"url": "/"}}, status=200)
 
 
 """
