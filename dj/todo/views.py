@@ -18,21 +18,32 @@ def add_todo(req: django.http.HttpRequest):
 
     body = json.loads(req.body.decode("utf-8"))
 
-    # Todo.objects.create(
-    #     title=body["title"], status=body["status"], description=body["description"]
-    # )
+    if not body.get("title"):
+        return django.http.JsonResponse(
+            {
+                "title-error": "title is mandatory",
+            }
+        )
 
-    print("TODO Added: ", body)
-    return django.http.JsonResponse(
-        {
-            "title-error": "title is mandatory",
-            "status-error": "status is mandatory",
-            "description-error": "description is mandatory",
-        },
-        status=200,
+    if not body.get("status"):
+        return django.http.JsonResponse(
+            {
+                "status-error": "status is mandatory",
+            }
+        )
+
+    if not body.get("description"):
+        return django.http.JsonResponse(
+            {
+                "description-error": "description is mandatory",
+            }
+        )
+
+    Todo.objects.create(
+        title=body["title"], status=body["status"], description=body["description"]
     )
 
-    # return django.http.JsonResponse({"data": {"url": "/"}}, status=200)
+    return django.http.JsonResponse({"url": "/"}, status=200)
 
 
 """
