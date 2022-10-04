@@ -24,7 +24,14 @@ def add_todo(req: django.http.HttpRequest):
 
     print("TODO Added: ", body)
     return django.http.JsonResponse(
-        {"data": {"kameri-app/add-todo/#title-error": "title is mandatory"}}, status=200
+        {
+            "data": {
+                "kameri-app/add-todo/#title-error": "title is mandatory",
+                "kameri-app/add-todo/#status-error": "status is mandatory",
+                "kameri-app/add-todo/#description-error": "description is mandatory",
+            }
+        },
+        status=200,
     )
 
     # return django.http.JsonResponse({"data": {"url": "/"}}, status=200)
