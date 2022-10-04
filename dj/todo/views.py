@@ -21,21 +21,21 @@ def add_todo(req: django.http.HttpRequest):
     if not body.get("title"):
         return django.http.JsonResponse(
             {
-                "title-error": "title is mandatory",
+                "title-error": "* title is mandatory",
             }
         )
 
     if not body.get("status"):
         return django.http.JsonResponse(
             {
-                "status-error": "status is mandatory",
+                "status-error": "* status is mandatory",
             }
         )
 
     if not body.get("description"):
         return django.http.JsonResponse(
             {
-                "description-error": "description is mandatory",
+                "description-error": "* description is mandatory",
             }
         )
 
