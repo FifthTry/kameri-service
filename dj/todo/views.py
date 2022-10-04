@@ -60,13 +60,14 @@ def list_todo(req: django.http.HttpRequest):
         return django.http.HttpResponse("Wrong Method", status=405)
 
     mapper = lambda x: {
+        "id": x.id,
         "title": x.title,
         "status": x.status,
         "description": x.description,
     }
 
     return django.http.JsonResponse(
-        list(map(mapper, Todo.objects.all())),
+        list(map(mapper, Todo.objects.all().order_by('-updated_at'))),
         safe=False,
     )
 
@@ -83,34 +84,50 @@ def update_todo(req: django.http.HttpRequest):
         return django.http.HttpResponse("Wrong Method", status=405)
 
     body = json.loads(req.body.decode("utf-8"))
+    id = body.get("id")
     status = body.get("status")
+
     if not status:
-        # Return error fields
+        # TODO:
         return django.http.JsonResponse(
             {
-                "success": False,
                 "error": {"todo#status": "Status is mandatory field"},
                 "message": "missing mandatory fields",
             },
             status=200,
         )
 
-    print(body, status)
+    if not id:
+        # # TODO:
+        return django.http.JsonResponse(
+            {
+                "error": {"todo#status": "Status is mandatory field"},
+                "message": "missing mandatory fields",
+            },
+            status=200,
+        )
 
-    return django.http.JsonResponse(
-        {
-            "data": [
-                {"id": "<todo id>", "title": "<todo title>", "status": "<todo status>"}
-            ],
-            "success": True,
-            "message": "updated successfully",
-        },
-        status=200,
-    )
+    try:
+        todo = Todo.objects.get(id=id)
+        todo.status = status
+        todo.save()
+        return django.http.JsonResponse({"reload": True})
+    except Exception as e:
+        # TODO
+        return django.http.JsonResponse(
+            {
+                "data": [
+                    {"id": "<todo id>", "title": "<todo title>", "status": "<todo status>"}
+                ],
+                "success": True,
+                "message": "updated successfully",
+            },
+            status=200,
+        )
 
 
 """
 curl -X POST \
---data '{"status": "done"}' \
+--data '{"id": 1, "status": "done"}' \
 http://127.0.0.1:8001/api/update-todo/
 """
