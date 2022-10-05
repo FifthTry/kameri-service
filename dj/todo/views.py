@@ -1,4 +1,5 @@
 import django.http
+from django.core.exceptions import ObjectDoesNotExist
 import json
 from django.views.decorators.csrf import csrf_exempt
 from .models import Todo
@@ -8,7 +9,9 @@ from .forms import AddTodoForm
 @csrf_exempt
 def add_todo(req: django.http.HttpRequest):
     if req.method != "POST":
-        return django.http.HttpResponse("wrong method: only POST allowed, got: %s" % req.method, status=405)
+        return django.http.HttpResponse(
+            "wrong method: only POST allowed, got: %s" % req.method, status=405
+        )
 
     # TODO: in future we will allow `form = AddTodoForm(ftd_django.get_data(req))`.
     #       `.get_data()` will look for both json data if content-type is application/json,
@@ -25,13 +28,14 @@ def add_todo(req: django.http.HttpRequest):
     Todo.objects.create(
         title=form.cleaned_data["title"],
         status=form.cleaned_data["status"],
-        description=form.cleaned_data["description"]
+        description=form.cleaned_data["description"],
     )
 
     # TODO: url should be constructed using `mount-point` header if present
     #       in future we can provide a helper so we can write:
     #       `return ftd_django.redirect("/", req)`
     return django.http.JsonResponse({"redirect": "/"})
+
 
 """
 curl -X POST \
@@ -40,20 +44,17 @@ http://127.0.0.1:8001/api/add-todo/
 """
 
 
-def list_todo(req: django.http.HttpRequest):
-
-    if req.method != "GET":
-        return django.http.HttpResponse("Wrong Method", status=405)
-
-    mapper = lambda x: {
-        "id": x.id,
-        "title": x.title,
-        "status": x.status,
-        "description": x.description,
-    }
-
+def list_todo(_req: django.http.HttpRequest):
     return django.http.JsonResponse(
-        list(map(mapper, Todo.objects.all().order_by('-updated_at'))),
+        [
+            {
+                "id": x.id,
+                "title": x.title,
+                "status": x.status,
+                "description": x.description,
+            }
+            for x in Todo.objects.all().order_by("-updated_at")
+        ],
         safe=False,
     )
 
@@ -73,8 +74,7 @@ def update_todo(req: django.http.HttpRequest):
     id = body.get("id")
     status = body.get("status")
 
-    if not status:
-        # TODO:
+    if not status:  # TODO:
         return django.http.JsonResponse(
             {
                 "error": {"todo#status": "Status is mandatory field"},
@@ -83,8 +83,7 @@ def update_todo(req: django.http.HttpRequest):
             status=200,
         )
 
-    if not id:
-        # # TODO:
+    if not id:  # TODO:
         return django.http.JsonResponse(
             {
                 "error": {"todo#status": "Status is mandatory field"},
@@ -95,21 +94,12 @@ def update_todo(req: django.http.HttpRequest):
 
     try:
         todo = Todo.objects.get(id=id)
-        todo.status = status
-        todo.save()
-        return django.http.JsonResponse({"reload": True})
-    except Exception as e:
-        # TODO
-        return django.http.JsonResponse(
-            {
-                "data": [
-                    {"id": "<todo id>", "title": "<todo title>", "status": "<todo status>"}
-                ],
-                "success": True,
-                "message": "updated successfully",
-            },
-            status=200,
-        )
+    except ObjectDoesNotExist:
+        raise  # TODO: handle this
+
+    todo.status = status
+    todo.save()
+    return django.http.JsonResponse({"reload": True})
 
 
 """
