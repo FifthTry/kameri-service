@@ -2,11 +2,17 @@
 
 This repository contains Kameri service. This service written in Django.
 
-# How To Run This Service
 
+
+- $ git cone the repository and cd to repository
+
+# How To Run This Service
+- Install python and `git cli` then follow the below steps using terminal
 ```shell
-$ python3 -venv venv
-$ source venv/bin/activate
+$ git clone git@github.com:FifthTry/kameri-service.git
+$ cd kameri-service
+$ python -m venv .env
+$ source .env/bin/activate
 $ pip install -r requirements.txt
 $ python manage.py migrate
 $ python manage.py runserver 8001
