@@ -2,10 +2,6 @@
 
 This repository contains Kameri service. This service written in Django.
 
-
-
-- $ git cone the repository and cd to repository
-
 # How To Run This Service
 - Install python and `git cli` then follow the below steps using terminal
 ```shell
