@@ -10,8 +10,8 @@ $ cd kameri-service
 $ python -m venv .env
 $ source .env/bin/activate
 $ pip install -r requirements.txt
-$ python manage.py migrate
-$ python manage.py runserver 8001
+$ python dj/manage.py migrate
+$ python dj/manage.py runserver 8001
 ```
 
 To test it, checkout the [kameri-app], and run it on post 8001.
