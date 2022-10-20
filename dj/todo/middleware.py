@@ -11,13 +11,15 @@ from django.utils.deprecation import MiddlewareMixin
 
 import time
 import math
-from encrypted_id import encode
+
+# from encrypted_id import encode # Heroku Error Pycryto
+# https://stackoverflow.com/questions/70705404/systemerror-py-ssize-t-clean-macro-must-be-defined-for-formats
 
 
 class TrackerMiddleware(MiddlewareMixin):
     def process_request(self, request):
         if request.COOKIES.get("tid", None) is None:
-            request.tid = encode(math.floor(time.time()), "kameri-service-tracker")
+            request.tid = str(math.floor(time.time()))
         else:
             request.tid = request.COOKIES.get("tid")
         return None

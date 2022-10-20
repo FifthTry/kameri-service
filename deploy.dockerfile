@@ -66,6 +66,8 @@ EXPOSE 8080
 
 # Deploy an app
 # heroku stack:set container -a kameri-service
+# heroku stack
+# heroku stack:set heroku-22
 # heroku git:remote -a kameri-service
 # Deploy the application
 # git push heroku main
