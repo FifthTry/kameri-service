@@ -55,7 +55,7 @@ https://kameri-service.herokuapp.com/api/add-todo/
 """
 
 
-def list_todo(_req: django.http.HttpRequest):
+def list_todo(req: django.http.HttpRequest):
 
     if not req.tid:
         return django.http.HttpResponse("tid is required")
