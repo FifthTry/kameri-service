@@ -25,8 +25,8 @@ RUN pip install -r requirements.txt
 COPY ./dj .
 
 # add and run as non-root user
-RUN adduser -D myuser
-USER myuser
+RUN adduser -D www-data
+USER www-data
 
 EXPOSE 8080
 
@@ -80,4 +80,5 @@ EXPOSE 8080
 # heroku run python manage.py makemigrations -a kameri-service
 # heroku run python manage.py migrate -a kameri-service
 
+# Article
 # https://devcenter.heroku.com/articles/build-docker-images-heroku-yml
