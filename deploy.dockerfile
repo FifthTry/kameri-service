@@ -19,14 +19,16 @@ RUN apk update \
 
 # install dependencies
 COPY ./requirements.txt .
+
+# add and run as non-root user
+# RUN useradd -D www-data
+# USER www-data
+
+
 RUN pip install -r requirements.txt
 
 # copy project
 COPY ./dj .
-
-# add and run as non-root user
-RUN adduser -D www-data
-USER www-data
 
 EXPOSE 8080
 
