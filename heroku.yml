@@ -1,0 +1,6 @@
+build:
+  docker:
+    web: deploy.dockerfile
+
+run:
+  web: gunicorn hello_django.wsgi:application --bind 0.0.0.0:$PORT

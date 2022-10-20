@@ -26,8 +26,8 @@ COPY ./dj .
 
 EXPOSE 8080
 
-# run gunicorn
-CMD gunicorn proj.wsgi:application --bind 0.0.0.0:$PORT --workers 4
+# run gunicorn, commented out for
+# CMD gunicorn proj.wsgi:application --bind 0.0.0.0:$PORT --workers 4
 
 ## Docker Related
 # ***************
@@ -42,7 +42,18 @@ CMD gunicorn proj.wsgi:application --bind 0.0.0.0:$PORT --workers 4
 
 # ***************
 
+# ***************
 ## Django service related
 # ***************
 # gunicorn martor_demo.wsgi --user www-data --bind 0.0.0.0:8010 --workers 3
 # gunicorn proj.wsgi --user www-data --bind 0.0.0.0:8010 --workers 3
+
+# ***************
+## Heroku Setup
+# ***************
+
+# Create an app
+# heroku create
+# app name: peaceful-anchorage-04528
+# heroku stack:set container -a peaceful-anchorage-04528
+# heroku git:remote -a peaceful-anchorage-04528
