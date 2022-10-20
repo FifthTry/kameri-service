@@ -3,4 +3,4 @@ build:
     web: deploy.dockerfile
 
 run:
-  web: gunicorn proj.wsgi:application --user www-data --bind 0.0.0.0:$PORT --workers 4
+  web: gunicorn proj.wsgi:application --bind 0.0.0.0:$PORT --workers 4
