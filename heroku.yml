@@ -3,5 +3,5 @@ build:
     web: deploy.dockerfile
 
 run:
-  web: python manage.py runserver 0.0.0.0:$PORT
+  web: python /app/manage.py runserver 0.0.0.0:$PORT
 #  web: gunicorn --pythonpath dj proj.wsgi:application --bind 0.0.0.0:$PORT --workers 1
