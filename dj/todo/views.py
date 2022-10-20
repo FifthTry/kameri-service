@@ -70,6 +70,10 @@ def list_todo(_req: django.http.HttpRequest):
 curl -X GET http://127.0.0.1:8001/api/todos/
 """
 
+"""
+curl -X GET https://kameri-service.herokuapp.com/api/todos/
+"""
+
 
 @csrf_exempt
 def update_todo(req: django.http.HttpRequest):
@@ -113,4 +117,10 @@ def update_todo(req: django.http.HttpRequest):
 curl -X POST \
 --data '{"id": 1, "status": "done"}' \
 http://127.0.0.1:8001/api/update-todo/
+"""
+
+"""
+curl -X POST \
+--data '{"id": 1, "status": "done"}' \
+https://kameri-service.herokuapp.com/api/update-todo/
 """

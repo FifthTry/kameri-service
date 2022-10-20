@@ -79,3 +79,5 @@ EXPOSE 8080
 # Once the database is up, run the migrations
 # heroku run python manage.py makemigrations -a kameri-service
 # heroku run python manage.py migrate -a kameri-service
+
+# https://devcenter.heroku.com/articles/build-docker-images-heroku-yml
