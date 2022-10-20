@@ -18,6 +18,7 @@ from django.urls import path
 import django
 from todo import views
 
+
 def health(req):
     return django.http.HttpResponse("Kameri Service is up", status=200)
 

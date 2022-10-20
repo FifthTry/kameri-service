@@ -50,7 +50,6 @@ https://kameri-service.herokuapp.com/api/add-todo/
 """
 
 
-
 def list_todo(_req: django.http.HttpRequest):
     return django.http.JsonResponse(
         [

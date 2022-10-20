@@ -5,6 +5,7 @@ from .models import Todo
 
 # admin.site.register(Todo)
 
+
 @admin.register(Todo)
 class TodoAdmin(admin.ModelAdmin):
     list_display = [field.name for field in Todo._meta.get_fields()]

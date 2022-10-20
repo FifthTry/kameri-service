@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-8q)fp9#x3g!v5yhe!r(p&9hn-#p9o9=0^lmh9)_y%m08+bxfcm"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = int(os.environ.get('DEBUG', default=0))
+DEBUG = int(os.environ.get("DEBUG", default=0))
 
 ALLOWED_HOSTS = ["*"]
 
@@ -49,7 +49,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "todo.middleware.TrackerMiddleware"
+    "todo.middleware.TrackerMiddleware",
 ]
 
 ROOT_URLCONF = "proj.urls"
@@ -83,11 +83,14 @@ DATABASES = {
     }
 }
 
-if os.environ.get('DATABASE_URL'):
+if os.environ.get("DATABASE_URL"):
     import dj_database_url
-    DATABASE_URL = os.environ.get('DATABASE_URL')
-    db_from_env = dj_database_url.config(default=DATABASE_URL, conn_max_age=500, ssl_require=True)
-    DATABASES['default'].update(db_from_env)
+
+    DATABASE_URL = os.environ.get("DATABASE_URL")
+    db_from_env = dj_database_url.config(
+        default=DATABASE_URL, conn_max_age=500, ssl_require=True
+    )
+    DATABASES["default"].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
