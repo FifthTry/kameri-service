@@ -15,10 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+import django
 from todo import views
+
+def health(req):
+    return django.http.HttpResponse("Kameri Service is up", status=200)
+
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("health/", health),
     path("api/add-todo/", views.add_todo),
     path("api/todos/", views.list_todo),
     path("api/update-todo/", views.update_todo),
