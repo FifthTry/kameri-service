@@ -26,7 +26,8 @@ COPY ./dj .
 
 EXPOSE 8080
 
-CMD gunicorn proj.wsgi --bind 0.0.0.0:8080 --workers 4
+# run gunicorn
+CMD gunicorn proj.wsgi:application --bind 0.0.0.0:$PORT --workers 4
 
 ## Docker Related
 # ***************
@@ -35,8 +36,10 @@ CMD gunicorn proj.wsgi --bind 0.0.0.0:8080 --workers 4
 # docker rm $(docker container ps -a -q)
 # docker rmi $(docker images -a -q)
 # docker build -t kameri-service . --file deploy.dockerfile
-# docker run -p 8080:8080 -it kameri-service
+# docker run -p 8080:8080 -e "PORT=8080" -it kameri-service
+
 # docker run --env PORT=8000 --env DOWNLOAD_BASE_URL=https://raw.githubusercontent.com/AbrarNitk/abrark/main/ -p 8000:8000 -it fpm-docker:latest
+
 # ***************
 
 ## Django service related
