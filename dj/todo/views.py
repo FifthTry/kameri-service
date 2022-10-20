@@ -33,7 +33,7 @@ def add_todo(req: django.http.HttpRequest):
         title=form.cleaned_data["title"],
         status=form.cleaned_data["status"],
         description=form.cleaned_data["description"],
-        tracker=req.tid
+        tracker=req.tid,
     )
 
     # TODO: url should be constructed using `mount-point` header if present
@@ -59,7 +59,6 @@ def list_todo(_req: django.http.HttpRequest):
 
     if not req.tid:
         return django.http.HttpResponse("tid is required")
-
 
     return django.http.JsonResponse(
         [

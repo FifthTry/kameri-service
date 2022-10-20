@@ -11,14 +11,15 @@ from django.utils.deprecation import MiddlewareMixin
 
 import time
 import math
+from encrypted_id import encode
 
 
 class TrackerMiddleware(MiddlewareMixin):
     def process_request(self, request):
         if request.COOKIES.get("tid", None) is None:
-            request.tid = math.floor(time.time())
+            request.tid = encode(math.floor(time.time()), "kameri-service-tracker")
         else:
-            request.tid = int(request.COOKIES.get("tid"))
+            request.tid = request.COOKIES.get("tid")
         return None
 
     def process_response(self, request, response: JsonResponse):
@@ -29,7 +30,7 @@ class TrackerMiddleware(MiddlewareMixin):
             expires = datetime.datetime.now() + datetime.timedelta(seconds=max_age)
             response.set_cookie(
                 "tid",
-                str(request.tid),
+                request.tid,
                 expires=expires.strftime("%a, %d-%b-%Y %H:%M:%S GMT"),
             )
             print("process_response", response.cookies)
