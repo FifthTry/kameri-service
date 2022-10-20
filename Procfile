@@ -1,1 +1,1 @@
-web: gunicorn --chdir ./dj proj.wsgi:application --bind 0.0.0.0:$PORT --workers 1
+web: gunicorn --pythonpath dj proj.wsgi:application --bind 0.0.0.0:$PORT --workers 1

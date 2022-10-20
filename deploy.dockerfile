@@ -33,9 +33,9 @@ COPY ./dj .
 EXPOSE 8080
 
 # run gunicorn, commented out for
-# CMD gunicorn proj.wsgi:application --bind 0.0.0.0:$PORT --workers 4
+CMD gunicorn proj.wsgi:application --bind 0.0.0.0:$PORT --workers 4
 
-CMD python manage.py runserver 0.0.0.0:8080
+# CMD python manage.py runserver 0.0.0.0:8080
 
 ## Docker Related
 # ***************
