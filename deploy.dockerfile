@@ -53,7 +53,12 @@ EXPOSE 8080
 # ***************
 
 # Create an app
-# heroku create
-# app name: peaceful-anchorage-04528
-# heroku stack:set container -a peaceful-anchorage-04528
-# heroku git:remote -a peaceful-anchorage-04528
+# heroku apps:create kameri-service --manifest
+# app name: kameri-service
+
+# Deploy an app
+# heroku stack:set container -a kameri-service
+# heroku git:remote -a kameri-service
+
+# Destroy an app
+# heroku apps:destroy kameri-service
