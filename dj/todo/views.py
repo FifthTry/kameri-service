@@ -8,6 +8,10 @@ from .forms import AddTodoForm
 
 @csrf_exempt
 def add_todo(req: django.http.HttpRequest):
+
+    if not req.tid:
+        return django.http.HttpResponse("tid is required")
+
     if req.method != "POST":
         return django.http.HttpResponse(
             "wrong method: only POST allowed, got: %s" % req.method, status=405
@@ -29,6 +33,7 @@ def add_todo(req: django.http.HttpRequest):
         title=form.cleaned_data["title"],
         status=form.cleaned_data["status"],
         description=form.cleaned_data["description"],
+        tracker=req.tid
     )
 
     # TODO: url should be constructed using `mount-point` header if present
@@ -51,6 +56,11 @@ https://kameri-service.herokuapp.com/api/add-todo/
 
 
 def list_todo(_req: django.http.HttpRequest):
+
+    if not req.tid:
+        return django.http.HttpResponse("tid is required")
+
+
     return django.http.JsonResponse(
         [
             {
@@ -59,7 +69,7 @@ def list_todo(_req: django.http.HttpRequest):
                 "status": x.status,
                 "description": x.description,
             }
-            for x in Todo.objects.all().order_by("-updated_at")
+            for x in Todo.objects.filter(tracker=req.tid).order_by("-updated_at")
         ],
         safe=False,
     )
@@ -76,6 +86,9 @@ curl -X GET https://kameri-service.herokuapp.com/api/todos/
 
 @csrf_exempt
 def update_todo(req: django.http.HttpRequest):
+
+    if not req.tid:
+        return django.http.HttpResponse("tid is required")
 
     if req.method != "POST":
         return django.http.HttpResponse("Wrong Method", status=405)
