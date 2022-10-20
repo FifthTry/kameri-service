@@ -1,19 +1,30 @@
 # syntax=docker/dockerfile:1
-FROM python:3
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-WORKDIR /code
-COPY requirements.txt /code/
+
+# pull official base image
+FROM python:3.10-alpine
+
+# set work directory
+WORKDIR /app
+
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+ENV DEBUG 0
+
+# install psycopg2
+RUN apk update \
+    && apk add --virtual build-essential gcc python3-dev musl-dev \
+    && apk add postgresql-dev \
+    && pip install psycopg2
+
+# install dependencies
+COPY ./requirements.txt .
 RUN pip install -r requirements.txt
-COPY . /code/
+
+# copy project
+COPY ./dj .
 
 EXPOSE 8080
-
-# gunicorn martor_demo.wsgi --user www-data --bind 0.0.0.0:8010 --workers 3
-
-# gunicorn proj.wsgi --user www-data --bind 0.0.0.0:8010 --workers 3
-
-WORKDIR /code/dj
 
 CMD gunicorn proj.wsgi --bind 0.0.0.0:8080 --workers 4
 
@@ -26,3 +37,7 @@ CMD gunicorn proj.wsgi --bind 0.0.0.0:8080 --workers 4
 # docker run -p 8080:8080 -it kameri-service
 
 # docker run --env PORT=8000 --env DOWNLOAD_BASE_URL=https://raw.githubusercontent.com/AbrarNitk/abrark/main/ -p 8000:8000 -it fpm-docker:latest
+
+# gunicorn martor_demo.wsgi --user www-data --bind 0.0.0.0:8010 --workers 3
+
+# gunicorn proj.wsgi --user www-data --bind 0.0.0.0:8010 --workers 3
