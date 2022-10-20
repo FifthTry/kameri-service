@@ -24,6 +24,10 @@ RUN pip install -r requirements.txt
 # copy project
 COPY ./dj .
 
+# add and run as non-root user
+RUN adduser -D myuser
+USER myuser
+
 EXPOSE 8080
 
 # run gunicorn, commented out for
@@ -59,6 +63,19 @@ EXPOSE 8080
 # Deploy an app
 # heroku stack:set container -a kameri-service
 # heroku git:remote -a kameri-service
+# Deploy the application
+# git push heroku main
 
 # Destroy an app
 # heroku apps:destroy kameri-service
+
+# heroku check file system
+# heroku run ls /app -a kameri-service
+
+# Create a heroku database
+# heroku addons:create heroku-postgresql:hobby-dev -a kameri-service
+# This command will automatically setup the DATABASE_URL
+
+# Once the database is up, run the migrations
+# heroku run python manage.py makemigrations -a kameri-service
+# heroku run python manage.py migrate -a kameri-service

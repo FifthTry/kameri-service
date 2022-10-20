@@ -43,6 +43,13 @@ curl -X POST \
 http://127.0.0.1:8001/api/add-todo/
 """
 
+"""
+curl -X POST \
+--data '{"title": "Take update from Interns", "status": "In Progress", "description": "Description"}' \
+https://kameri-service.herokuapp.com/api/add-todo/
+"""
+
+
 
 def list_todo(_req: django.http.HttpRequest):
     return django.http.JsonResponse(
