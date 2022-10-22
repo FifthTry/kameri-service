@@ -18,9 +18,8 @@
 <!--
 # Sample API
 -->
-
-        <div style="margin:20px">
-            <h2>Sample API</h2>
+        <div style="margin:20px; padding: 20px">
+            <h2>1. Sample API</h2>
             <h3> GET /api/sample/</h3>
             <h3>Request: </h3>
             <code>
@@ -60,5 +59,25 @@ curl -X GET https://kameri-service.herokuapp.com/api/sample/
     }
 ]</code>
         </div>
+
+
+<!--
+# add-todo
+-->
+        <div style="margin:20px; padding:20px">
+            <h2>2. Add Todo</h2>
+            <h3> POST /api/add-todo/</h3>
+            <h3>Request: </h3>
+            <code>
+curl -X POST \
+--data '{"title": "Take update from Interns", "status": "In Progress", "description": "Description"}' \
+https://kameri-service.herokuapp.com/api/add-todo/
+            </code>
+            <h3>Response: </h3>
+            <code>{"redirect": "/"}</code>
+        </div>
+
+
+
     </body>
 </html>
