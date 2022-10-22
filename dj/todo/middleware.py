@@ -12,7 +12,7 @@ from django.utils.deprecation import MiddlewareMixin
 import time
 import math
 
-# from encrypted_id import encode # Heroku Error Pycryto
+# from encrypted_id import encode # Heroku Error Pycryto AES
 # https://stackoverflow.com/questions/70705404/systemerror-py-ssize-t-clean-macro-must-be-defined-for-formats
 
 

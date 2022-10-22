@@ -24,7 +24,7 @@ def health(req):
 
 
 urlpatterns = [
-    path("", health),
+    path("", views.apis),
     path("admin/", admin.site.urls),
     path("health/", health),
     path("api/add-todo/", views.add_todo),

@@ -7,6 +7,12 @@ from .forms import AddTodoForm
 
 
 @csrf_exempt
+def apis(req: django.http.HttpRequest):
+    from django.shortcuts import render
+    return render(req, "index.html")
+
+
+@csrf_exempt
 def add_todo(req: django.http.HttpRequest):
 
     if not req.tid:
