@@ -15,10 +15,17 @@
 </head>
     <body style="padding:10px">
         <h1>Kameri Service APIs</h1>
+        <div style="margin:20px; padding: 20px">
+            <p style="font-size:150%;"><i>
+                By using `tid` as cookie kameri service managed your session.
+                It will be automatically set by kameri-service whenever you make
+                your first API request.
+            </i><p>
+        </div>
 <!--
 # Sample API
 -->
-        <div style="margin:20px; padding: 20px">
+        <div style="margin:20px;">
             <h2>1. Sample API</h2>
             <h3> GET /api/sample/</h3>
             <h3>Request: </h3>
@@ -78,6 +85,40 @@ https://kameri-service.herokuapp.com/api/add-todo/
         </div>
 
 
+<!--
+# add-todo
+-->
+        <div style="margin:20px; padding:20px">
+            <h2>3. List Todo</h2>
+            <h3> GET /api/todos/</h3>
+            <h3>Request: </h3>
+            <code>curl -X GET https://kameri-service.herokuapp.com/api/todos/</code>
+            <h3>Response: </h3>
+            <code>
+[{
+        "id": 1,
+        "title": "Exercise",
+        "status": "Pending",
+        "description": "I have to go exercise at 6:00PM.",
+}]</code>
+        </div>
+
+
+<!--
+# update-todo
+-->
+        <div style="margin:20px; padding:20px">
+            <h2>4. Update Todo</h2>
+            <h3> POST /api/update-todo/</h3>
+            <h3>Request: </h3>
+            <code>
+curl -X POST \
+--data '{"id": 1, "status": "done"}' \
+https://kameri-service.herokuapp.com/api/update-todo/
+            </code>
+            <h3>Response: </h3>
+            <code>{"reload": true}</code>
+        </div>
 
     </body>
 </html>
