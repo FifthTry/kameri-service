@@ -13,6 +13,45 @@ def apis(req: django.http.HttpRequest):
 
 
 @csrf_exempt
+def sample(req: django.http.HttpRequest):
+    return django.http.JsonResponse(
+        [
+            {
+                "id": 1,
+                "title": "Exercise",
+                "status": "Pending",
+                "description": "I have to go exercise at 6:00PM.",
+            },
+            {
+                "id": 2,
+                "title": "Deploy Kameri",
+                "status": "In Progress",
+                "description": "Deploy Kameri Service on Heroku.",
+            },
+            {
+                "id": 3,
+                "title": "Doctor appointment",
+                "status": "Pending",
+                "description": "I have a doctor's appointment at 4:00PM",
+            },
+            {
+                "id": 4,
+                "title": "Meeting with Arpita",
+                "status": "Pending",
+                "description": "I have to discuss Fly.io deployment at 5:00PM.",
+            },
+            {
+                "id": 5,
+                "title": "Meeting with Amitu",
+                "status": "Pending",
+                "description": "I have to discuss FPM registry with Amitu.",
+            }
+        ],
+        safe=False,
+    )
+
+
+@csrf_exempt
 def add_todo(req: django.http.HttpRequest):
 
     if not req.tid:

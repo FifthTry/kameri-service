@@ -1,4 +1,64 @@
-<body>
-    <h1>Kameri Service is UP</h1>
-    <h2>Kameri Service is UP</h2>
-</body>
+<html>
+<head>
+    <style>
+        code {
+            font-family: Consolas,"courier new";
+            color: crimson;
+            background-color: #f1f1f1;
+            padding: 2px;
+            font-size: 105%;
+            white-space: pre;
+        }
+    </style>
+    <script>
+    </script>
+</head>
+    <body style="padding:10px">
+        <h1>Kameri Service APIs</h1>
+<!--
+# Sample API
+-->
+
+        <div style="margin:20px">
+            <h2>Sample API</h2>
+            <h3> GET /api/sample/</h3>
+            <h3>Request: </h3>
+            <code>
+curl -X GET https://kameri-service.herokuapp.com/api/sample/
+            </code>
+            <h3>Response: </h3>
+            <code>[
+    {
+        "id": 1,
+        "title": "Exercise",
+        "status": "Pending",
+        "description": "I have to go exercise at 6:00PM.",
+    },
+    {
+        "id": 2,
+        "title": "Deploy Kameri",
+        "status": "In Progress",
+        "description": "Deploy Kameri Service on Heroku.",
+    },
+    {
+        "id": 3,
+        "title": "Doctor appointment",
+        "status": "Pending",
+        "description": "I have a doctor's appointment at 4:00PM",
+    },
+    {
+        "id": 4,
+        "title": "Meeting with Arpita",
+        "status": "Pending",
+        "description": "I have to discuss Fly.io deployment at 5:00PM.",
+    },
+    {
+        "id": 5,
+        "title": "Meeting with Amitu",
+        "status": "Pending",
+        "description": "I have to discuss FPM registry with Amitu.",
+    }
+]</code>
+        </div>
+    </body>
+</html>
