@@ -54,6 +54,7 @@ def sample(req: django.http.HttpRequest):
 @csrf_exempt
 def add_todo(req: django.http.HttpRequest):
 
+    print("adding todo")
     if not req.tid:
         return django.http.HttpResponse("tid is required")
 
@@ -84,7 +85,11 @@ def add_todo(req: django.http.HttpRequest):
     # TODO: url should be constructed using `mount-point` header if present
     #       in future we can provide a helper so we can write:
     #       `return ftd_django.redirect("/", req)`
-    return django.http.JsonResponse({"redirect": "/"})
+
+    print("redirecting")
+    return django.http.HttpResponseRedirect("/")
+
+    # return django.http.JsonResponse({"redirect": "/"})
 
 
 """
